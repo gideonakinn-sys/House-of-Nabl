@@ -1,0 +1,120 @@
+{
+  "phone": "1234567890",
+  "currency": "USD",
+  "products": [
+    {
+      "id": "nabl-001",
+      "name": "Oxford Overshirt",
+      "description": "A heavyweight oxford cloth overshirt built for layering. Garment-dyed for depth of color and softened from the first wear. Features a classic button-down collar, box pleat, and locker loop.",
+      "price": 18500,
+      "compare_at": 22000,
+      "category": "shirts",
+      "images": [
+        "img/overshirt-front.jpg",
+        "img/overshirt-detail.jpg"
+      ],
+      "variants": [
+        { "sku": "ovs-001-slate-s", "size": "S", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
+        { "sku": "ovs-001-slate-m", "size": "M", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
+        { "sku": "ovs-001-slate-l", "size": "L", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
+        { "sku": "ovs-001-slate-xl", "size": "XL", "color": "Slate", "colorHex": "#5B5B5B", "stock": false },
+        { "sku": "ovs-001-clay-s", "size": "S", "color": "Clay", "colorHex": "#A4674C", "stock": true },
+        { "sku": "ovs-001-clay-m", "size": "M", "color": "Clay", "colorHex": "#A4674C", "stock": true },
+        { "sku": "ovs-001-clay-l", "size": "L", "color": "Clay", "colorHex": "#A4674C", "stock": true },
+        { "sku": "ovs-001-clay-xl", "size": "XL", "color": "Clay", "colorHex": "#A4674C", "stock": true }
+      ]
+    },
+    {
+      "id": "nabl-002",
+      "name": "Relaxed Denim Jean",
+      "description": "A straight-leg denim jean with a relaxed top block and gentle taper from the knee. Cut from 13.75oz Japanese selvedge denim with a comfortable amount of stretch.",
+      "price": 22000,
+      "category": "bottoms",
+      "images": [
+        "img/denim-front.jpg",
+        "img/denim-fit.jpg"
+      ],
+      "variants": [
+        { "sku": "rdj-001-indigo-28", "size": "28", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-29", "size": "29", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-30", "size": "30", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-31", "size": "31", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-32", "size": "32", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-33", "size": "33", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-indigo-34", "size": "34", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
+        { "sku": "rdj-001-black-28", "size": "28", "color": "Black", "colorHex": "#1C1917", "stock": true },
+        { "sku": "rdj-001-black-29", "size": "29", "color": "Black", "colorHex": "#1C1917", "stock": true },
+        { "sku": "rdj-001-black-30", "size": "30", "color": "Black", "colorHex": "#1C1917", "stock": false },
+        { "sku": "rdj-001-black-31", "size": "31", "color": "Black", "colorHex": "#1C1917", "stock": true },
+        { "sku": "rdj-001-black-32", "size": "32", "color": "Black", "colorHex": "#1C1917", "stock": true },
+        { "sku": "rdj-001-black-33", "size": "33", "color": "Black", "colorHex": "#1C1917", "stock": true },
+        { "sku": "rdj-001-black-34", "size": "34", "color": "Black", "colorHex": "#1C1917", "stock": true }
+      ]
+    },
+    {
+      "id": "nabl-003",
+      "name": "Pique Polo",
+      "description": "A refined take on the classic polo. Cut from organic cotton pique with a ribbed collar and two-button placket. The fit is tailored through the body without being slim.",
+      "price": 14000,
+      "compare_at": 17500,
+      "category": "shirts",
+      "images": [
+        "img/polo-front.jpg",
+        "img/polo-collar.jpg"
+      ],
+      "variants": [
+        { "sku": "pp-001-cream-s", "size": "S", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
+        { "sku": "pp-001-cream-m", "size": "M", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
+        { "sku": "pp-001-cream-l", "size": "L", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
+        { "sku": "pp-001-cream-xl", "size": "XL", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
+        { "sku": "pp-001-olive-s", "size": "S", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
+        { "sku": "pp-001-olive-m", "size": "M", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
+        { "sku": "pp-001-olive-l", "size": "L", "color": "Olive", "colorHex": "#5C6B4F", "stock": false },
+        { "sku": "pp-001-olive-xl", "size": "XL", "color": "Olive", "colorHex": "#5C6B4F", "stock": true }
+      ]
+    },
+    {
+      "id": "nabl-004",
+      "name": "Wool Blend Crew",
+      "description": "A heavyweight knit crewneck in a merino-cotton blend. Ribbed cuffs and hem, reinforced shoulder seams. Everyday warmth with an elevated hand feel.",
+      "price": 19500,
+      "category": "knitwear",
+      "images": [
+        "img/crew-front.jpg",
+        "img/crew-detail.jpg"
+      ],
+      "variants": [
+        { "sku": "wbc-001-charcoal-s", "size": "S", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
+        { "sku": "wbc-001-charcoal-m", "size": "M", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
+        { "sku": "wbc-001-charcoal-l", "size": "L", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
+        { "sku": "wbc-001-charcoal-xl", "size": "XL", "color": "Charcoal", "colorHex": "#44403C", "stock": false },
+        { "sku": "wbc-001-oat-s", "size": "S", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
+        { "sku": "wbc-001-oat-m", "size": "M", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
+        { "sku": "wbc-001-oat-l", "size": "L", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
+        { "sku": "wbc-001-oat-xl", "size": "XL", "color": "Oat", "colorHex": "#D6D3D1", "stock": true }
+      ]
+    },
+    {
+      "id": "nabl-005",
+      "name": "Canvas Field Jacket",
+      "description": "A rugged field jacket cut from waxed cotton canvas. Unlined for year-round versatility, with a full snap front, two patch pockets, and an adjustable waist. Built to age.",
+      "price": 28500,
+      "compare_at": 34000,
+      "category": "outerwear",
+      "images": [
+        "img/jacket-front.jpg",
+        "img/jacket-back.jpg"
+      ],
+      "variants": [
+        { "sku": "cfj-001-tan-s", "size": "S", "color": "Tan", "colorHex": "#C4A882", "stock": true },
+        { "sku": "cfj-001-tan-m", "size": "M", "color": "Tan", "colorHex": "#C4A882", "stock": true },
+        { "sku": "cfj-001-tan-l", "size": "L", "color": "Tan", "colorHex": "#C4A882", "stock": true },
+        { "sku": "cfj-001-tan-xl", "size": "XL", "color": "Tan", "colorHex": "#C4A882", "stock": true },
+        { "sku": "cfj-001-olive-s", "size": "S", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
+        { "sku": "cfj-001-olive-m", "size": "M", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
+        { "sku": "cfj-001-olive-l", "size": "L", "color": "Olive", "colorHex": "#5C6B4F", "stock": false },
+        { "sku": "cfj-001-olive-xl", "size": "XL", "color": "Olive", "colorHex": "#5C6B4F", "stock": true }
+      ]
+    }
+  ]
+}
