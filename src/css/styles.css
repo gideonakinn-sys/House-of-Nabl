@@ -350,6 +350,59 @@ button {
   display: none;
 }
 
+.hero__focus-indicator {
+  position: fixed;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 103;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+.hero__focus-indicator-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--stone-800);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.hero__focus-indicator-counter {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--stone-400);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.hero__focus-indicator-thumbs {
+  display: flex;
+  gap: 4px;
+}
+
+.hero__focus-indicator-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  opacity: 0.3;
+  transition: opacity 0.25s ease, outline 0.25s ease;
+  outline: 0 solid var(--stone-900);
+}
+
+.hero__focus-indicator-thumb.active {
+  opacity: 1;
+  outline: 2px solid var(--stone-900);
+  outline-offset: -2px;
+}
+
 body.focus-active {
   overflow: hidden;
 }

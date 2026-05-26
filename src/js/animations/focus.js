@@ -113,6 +113,33 @@ function createPanelBtn() {
   return el;
 }
 
+function createIndicator(src) {
+  var el = document.createElement('div');
+  el.className = 'hero__focus-indicator';
+
+  var label = document.createElement('span');
+  label.className = 'hero__focus-indicator-label';
+  label.textContent = 'Scroll';
+
+  var counter = document.createElement('span');
+  counter.className = 'hero__focus-indicator-counter';
+  counter.textContent = '01/04';
+
+  var thumbs = document.createElement('div');
+  thumbs.className = 'hero__focus-indicator-thumbs';
+  for (var i = 0; i < 4; i++) {
+    var t = document.createElement('div');
+    t.className = 'hero__focus-indicator-thumb' + (i === 0 ? ' active' : '');
+    t.style.cssText = 'background-image:url(' + src + ');background-size:cover;background-position:center;';
+    thumbs.appendChild(t);
+  }
+
+  el.appendChild(label);
+  el.appendChild(counter);
+  el.appendChild(thumbs);
+  return el;
+}
+
 function createGallery(img, alt, targetRect) {
   var el = document.createElement('div');
   el.className = 'hero__focus-gallery';
@@ -145,18 +172,30 @@ function createGallery(img, alt, targetRect) {
   var images = el.querySelectorAll('img');
   function onGalleryScroll() {
     var gRect = el.getBoundingClientRect();
-    images.forEach(function (im) {
+    var activeIdx = 0;
+    images.forEach(function (im, i) {
       var iRect = im.getBoundingClientRect();
       var overlap = Math.min(iRect.bottom, gRect.bottom) - Math.max(iRect.top, gRect.top);
       var visible = overlap > gRect.height * 0.4;
       if (visible) {
         gsap.to(im, { opacity: 1, duration: 0.25, overwrite: 'auto' });
         im.style.filter = 'blur(0px)';
+        activeIdx = i;
       } else {
         gsap.to(im, { opacity: 0.4, duration: 0.25, overwrite: 'auto' });
         im.style.filter = 'blur(8px)';
       }
     });
+
+    var fd = focusData;
+    if (fd && fd.indicator) {
+      var thumbs = fd.indicator.querySelectorAll('.hero__focus-indicator-thumb');
+      thumbs.forEach(function (t, i) {
+        t.classList.toggle('active', i === activeIdx);
+      });
+      var ctr = fd.indicator.querySelector('.hero__focus-indicator-counter');
+      if (ctr) ctr.textContent = String(activeIdx + 1).padStart(2, '0') + '/04';
+    }
   }
   el.addEventListener('scroll', onGalleryScroll);
 
@@ -204,6 +243,7 @@ function cleanup() {
   var d = focusData;
   d.clone.remove();
   d.gallery.remove();
+  if (d.indicator) d.indicator.remove();
   d.overlay.remove();
   if (d.panelGroup) {
     if (isMobile()) {
@@ -320,6 +360,9 @@ function openFocus(img) {
   var gallery = createGallery(img, product ? product.name : '', lastRect);
   document.body.appendChild(gallery);
 
+  var indicator = isMobile() ? null : createIndicator(img.getAttribute('src'));
+  if (indicator) document.body.appendChild(indicator);
+
   // Clone for FLIP animation (above gallery)
   var clone = createClone(img, firstRect, product ? product.name : '');
   clone.style.zIndex = '102';
@@ -355,7 +398,7 @@ function openFocus(img) {
 
   gsap.set(img, { scale: 1, opacity: 0 });
 
-  focusData = { img: img, clone: clone, gallery: gallery, overlay: overlay, panelGroup: panelGroup, allImages: allImages };
+  focusData = { img: img, clone: clone, gallery: gallery, indicator: indicator, overlay: overlay, panelGroup: panelGroup, allImages: allImages };
 
   gsap.fromTo(overlay, { opacity: 0 }, {
     opacity: 1, duration: 0.4, ease: 'power2.out', overwrite: 'auto',
