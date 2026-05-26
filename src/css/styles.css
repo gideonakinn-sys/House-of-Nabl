@@ -1,14 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-@font-face {
-  font-family: 'MADE Mirage';
-  src: local('MADE Mirage');
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 :root {
   --color-primary: #A4674C;
-  --color-primary-hover: #8C573F;
 
   --stone-900: #1C1917;
   --stone-800: #292524;
@@ -21,21 +15,19 @@
   --stone-100: #F5F5F4;
   --stone-50: #FAFAF9;
 
-  --font-heading: 'MADE Mirage', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Anton', sans-serif;
   --font-body: 'Roboto', system-ui, sans-serif;
 
   --font-size-21: 1.000rem;
   --font-size-17: 0.810rem;
   --font-size-15: 0.714rem;
 
-  --lh-display: 1.1;
   --lh-heading: 1.25;
   --lh-body: 1.6;
 
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
-  --space-xl: 4rem;
 
   --max-width: 1800px;
   --header-height: 48px;
@@ -85,7 +77,6 @@ button {
   padding: 0 var(--space-lg);
 }
 
-
 .header {
   background: var(--stone-100);
   height: var(--header-height);
@@ -115,26 +106,39 @@ button {
 
 .header__brand {
   font-family: var(--font-heading);
-  font-size: 19px;
+  font-size: 17px;
   letter-spacing: -0.05em;
   color: var(--stone-900);
   text-align: center;
   line-height: 1;
 }
 
-.header__cart {
+.header__right {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header__size-guide {
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: -0.03em;
+  color: var(--stone-800);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.header__size-guide:hover {
+  color: var(--stone-900);
+}
+
+.header__cart {
   font-family: var(--font-body);
   font-size: 13px;
   letter-spacing: -0.03em;
   color: var(--stone-900);
-  text-decoration: none;
   line-height: 1;
-}
-
-.header__cart:hover {
-  text-decoration: none;
-  color: var(--color-primary);
 }
 
 .hero {
@@ -272,23 +276,49 @@ button {
 }
 
 .hero__focus-panel-title {
-  font-family: var(--font-body);
-  font-size: 15px;
+  font-family: var(--font-heading);
+  font-size: 25px;
   font-weight: 400;
   color: var(--stone-800);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: var(--lh-heading);
   margin-bottom: 24px;
 }
 
-.hero__focus-panel-price {
-  font-family: var(--font-heading);
-  font-size: 25px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--stone-900);
+.hero__focus-panel-sizes {
   margin-bottom: 21px;
-  line-height: 1.1;
+}
+
+.hero__focus-panel-size-label {
+  font-size: 12px;
+  color: var(--stone-400);
+  letter-spacing: -0.02em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.hero__focus-panel-size-options {
+  display: flex;
+  gap: 6px;
+}
+
+.hero__focus-panel-size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 26px;
+  border: 1px solid var(--stone-100);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--stone-800);
+  cursor: pointer;
+}
+
+.hero__focus-panel-size.selected {
+  border-color: var(--stone-900);
 }
 
 .hero__focus-panel-desc {
@@ -325,20 +355,19 @@ button {
 }
 
 .hero__focus-panel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   cursor: pointer;
   border: none;
   height: 40px;
+  padding: 0 16px;
   background: var(--stone-800);
   color: #fff;
-  transition: background 0.2s ease;
-}
-
-.hero__focus-panel-btn:hover {
-  background: var(--stone-700);
 }
 
 .hero__focus-gallery {
@@ -353,18 +382,17 @@ button {
 .hero__focus-indicator {
   position: fixed;
   left: 32px;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 32px;
   z-index: 103;
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 32px;
-  padding: 0 12px;
+  gap: 16px;
+  height: 44px;
+  padding: 0 16px;
   background: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border-radius: 16px;
+  border-radius: 22px;
 }
 
 .hero__focus-indicator-label {
@@ -399,12 +427,23 @@ button {
 
 .hero__focus-indicator-thumb.active {
   opacity: 1;
-  outline: 2px solid var(--stone-900);
-  outline-offset: -2px;
+  outline: 1px solid var(--stone-900);
+  outline-offset: -1px;
 }
 
 body.focus-active {
   overflow: hidden;
+}
+
+body.focus-active .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(245, 245, 244, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -3,6 +3,12 @@ import gsap from 'gsap';
 let isFocusActive = false;
 let isClosing = false;
 let focusData = null;
+let cartCount = 0;
+
+function updateCartDisplay() {
+  var el = document.querySelector('.header__cart');
+  if (el) el.textContent = 'Cart (' + cartCount + ')';
+}
 
 const CONFIG = {
   durationEnter: 0.8,
@@ -96,20 +102,44 @@ function createPanel(product) {
   el.innerHTML = [
     '<p class="hero__focus-panel-collection">' + product.collection + '</p>',
     '<h2 class="hero__focus-panel-title">' + product.name + '</h2>',
-    '<p class="hero__focus-panel-price">' + formatPrice(product.price) + '</p>',
     '<p class="hero__focus-panel-desc">' + product.desc + '</p>',
+    '<div class="hero__focus-panel-sizes">',
+      '<span class="hero__focus-panel-size-label">Size</span>',
+      '<div class="hero__focus-panel-size-options">',
+        '<span class="hero__focus-panel-size">M</span>',
+        '<span class="hero__focus-panel-size">L</span>',
+        '<span class="hero__focus-panel-size">XL</span>',
+        '<span class="hero__focus-panel-size">2XL</span>',
+      '</div>',
+    '</div>',
     '<div class="hero__focus-panel-meta">',
       '<div class="hero__focus-panel-row"><span class="hero__focus-panel-label">Delivery</span><span class="hero__focus-panel-value">Ships within 2\u20133 business days.</span></div>',
     '</div>',
   ].join('');
 
+  var sizesEl = el.querySelector('.hero__focus-panel-size-options');
+  if (sizesEl) {
+    sizesEl.addEventListener('click', function (e) {
+      var target = e.target.closest('.hero__focus-panel-size');
+      if (!target) return;
+      sizesEl.querySelectorAll('.hero__focus-panel-size').forEach(function (s) {
+        s.classList.remove('selected');
+      });
+      target.classList.add('selected');
+    });
+  }
+
   return el;
 }
 
-function createPanelBtn() {
+function createPanelBtn(price) {
   var el = document.createElement('button');
   el.className = 'hero__focus-panel-btn';
-  el.textContent = 'Add to Cart';
+  el.innerHTML = '<span>Add to Cart</span><span>' + formatPrice(price) + '</span>';
+  el.addEventListener('click', function () {
+    cartCount++;
+    updateCartDisplay();
+  });
   return el;
 }
 
@@ -168,8 +198,20 @@ function createGallery(img, alt, targetRect) {
     }
   }
 
-  // Dim non-visible images on scroll
+  // Click an image to scroll gallery to it
   var images = el.querySelectorAll('img');
+  images.forEach(function (im, i) {
+    im.style.cursor = 'pointer';
+    im.addEventListener('click', function () {
+      if (mob) {
+        im.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        var top = im.offsetTop - (el.clientHeight - im.offsetHeight) / 2;
+        el.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
   function onGalleryScroll() {
     var gRect = el.getBoundingClientRect();
     var activeIdx = 0;
@@ -207,21 +249,21 @@ function createGallery(img, alt, targetRect) {
 
 function createPanelGroup(product, imgTarget) {
   var panel = createPanel(product);
-  var btn = createPanelBtn();
+  var btn = createPanelBtn(product.price);
 
   if (isMobile()) {
     var maxH = window.innerHeight - imgTarget.top - imgTarget.height - CONFIG.gap / 2 - CONFIG.pad;
     panel.style.cssText = 'position:fixed;left:' + CONFIG.pad + 'px;right:' + CONFIG.pad + 'px;top:' + (imgTarget.top + imgTarget.height + CONFIG.gap / 2) + 'px;max-height:' + maxH + 'px;z-index:102;background:#fff;padding:16px;overflow-y:auto;opacity:0;transform:translateY(16px);';
-    btn.style.cssText = 'position:fixed;left:' + CONFIG.pad + 'px;right:' + CONFIG.pad + 'px;z-index:102;height:40px;background:#292524;color:#fff;border:none;font-family:Roboto,system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:-0.02em;opacity:0;transform:translateY(10px);';
+    btn.style.cssText = 'position:fixed;left:' + CONFIG.pad + 'px;right:' + CONFIG.pad + 'px;z-index:102;opacity:0;transform:translateY(10px);';
     return { wrapper: panel, panel: panel, btn: btn };
   }
 
   var wrapper = document.createElement('div');
   wrapper.className = 'hero__focus-panel-wrapper';
-  wrapper.style.cssText = 'position:fixed;right:' + CONFIG.pad + 'px;bottom:' + CONFIG.pad + 'px;width:' + CONFIG.panelW + 'px;z-index:102;display:flex;flex-direction:column;gap:16px;transform:translateX(24px);opacity:0;';
+  wrapper.style.cssText = 'position:fixed;right:' + CONFIG.pad + 'px;bottom:' + CONFIG.pad + 'px;width:' + CONFIG.panelW + 'px;z-index:102;display:flex;flex-direction:column;gap:16px;transform:translateY(100%);opacity:0;';
 
   panel.style.cssText = 'background:#fff;padding:16px;';
-  btn.style.cssText = 'width:100%;height:40px;background:#292524;color:#fff;border:none;font-family:Roboto,system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:-0.02em;';
+  btn.style.cssText = 'width:100%;';
 
   wrapper.appendChild(panel);
   wrapper.appendChild(btn);
@@ -318,7 +360,7 @@ function closeFocus() {
       });
     } else {
       gsap.to(d.panelGroup.wrapper, {
-        transform: 'translateX(24px)',
+        transform: 'translateY(100%)',
         opacity: 0,
         duration: 0.25, ease: 'power2.out', overwrite: 'auto',
       });
@@ -361,7 +403,22 @@ function openFocus(img) {
   document.body.appendChild(gallery);
 
   var indicator = isMobile() ? null : createIndicator(img.getAttribute('src'));
-  if (indicator) document.body.appendChild(indicator);
+  if (indicator) {
+    document.body.appendChild(indicator);
+    var thumbImages = gallery.querySelectorAll('img');
+    indicator.querySelectorAll('.hero__focus-indicator-thumb').forEach(function (t, i) {
+      t.addEventListener('click', function () {
+        if (isMobile()) {
+          if (thumbImages[i]) thumbImages[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          if (thumbImages[i]) {
+            var top = thumbImages[i].offsetTop - (gallery.clientHeight - thumbImages[i].offsetHeight) / 2;
+            gallery.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  }
 
   // Clone for FLIP animation (above gallery)
   var clone = createClone(img, firstRect, product ? product.name : '');
@@ -431,7 +488,7 @@ function openFocus(img) {
       });
     } else {
       gsap.to(panelGroup.wrapper, {
-        transform: 'translateX(0)',
+        transform: 'translateY(0)',
         opacity: 1,
         duration: 0.5, ease: 'power2.out', delay: 0.15, overwrite: 'auto',
       });

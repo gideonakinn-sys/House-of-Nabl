@@ -14,7 +14,7 @@ A **static-first, serverless** web application that displays a product gallery a
 | Animations | GSAP 3.15 (`gsap`, `gsap/ScrollTrigger`) |
 | Smooth Scroll | Lenis 1.3.23 |
 | Styling | Plain CSS with custom properties |
-| Fonts | Roboto (body), MADE Mirage (headings) |
+| Fonts | Roboto (body), Anton (headings) |
 | Data | Static `data/products.json` |
 
 ## 3. Source Structure

@@ -12,7 +12,7 @@ No lint, typecheck, or test commands exist. No lint config, TypeScript, or test 
 
 ## Project Overview
 
-Vanilla JS e-commerce gallery site. Vite builds from `index.html` at root. Entry point: `/src/js/app.js`. Styles: `/src/css/styles.css`. Two runtime deps: GSAP 3.15 (animations), Lenis 1.3.23 (smooth scroll). Body font: Roboto. Heading font: MADE Mirage. No framework (React/Vue/etc.).
+Vanilla JS e-commerce gallery site. Vite builds from `index.html` at root. Entry point: `/src/js/app.js`. Styles: `/src/css/styles.css`. Two runtime deps: GSAP 3.15 (animations), Lenis 1.3.23 (smooth scroll). Body font: Roboto. Heading font: Anton. No framework (React/Vue/etc.).
 
 ## File Structure
 
@@ -35,21 +35,22 @@ img/
 ## Module Architecture
 
 - `src/js/app.js` — init orchestrator (imports all modules, runs on DOMContentLoaded)
-- `src/js/smoothScroll.js` — Lenis smooth scroll setup
-- `src/js/animations/reveal.js` — scroll-triggered GSAP/ScrollTrigger reveal
-- `src/js/animations/hover.js` — gallery image hover (dim others, scale up)
-- `src/js/animations/focus.js` — click-to-expand focus mode with FLIP animation
+- `src/js/smoothScroll.js` — Lenis smooth scroll setup with ScrollTrigger registration
+- `src/js/animations/reveal.js` — scroll-triggered GSAP/ScrollTrigger reveal (y 60→0, opacity 0→1, stagger)
+- `src/js/animations/hover.js` — gallery image hover (dim others in same row, scale up). Gated behind `(pointer: fine)` media query. Guards via `body.focus-active` class.
+- `src/js/animations/focus.js` — click-to-expand FLIP animation with scrollable gallery, product info panel, and scroll indicator
 
 ## Data Flow
 
 - `data/products.json` — static product catalog (name, description, price, variants, images)
-- Public dir `public/` — static assets served at `/` (prod JSON + webp copies)
-- WhatsApp deep link generated from product data for order intent
+- Public dir `public/` — static assets served at `/` (prod JSON + WebP copies)
+- WhatsApp deep link in header (`wa.me/2348064361140`) for order intent
+- Product data in focus mode is pulled from a local `productDataMap` (keyed by image filename), NOT from `products.json`
 
 ## Code Style Guidelines
 
 ### Imports
-- Default imports for libraries: `import gsap from 'gsap'`
+- Default imports for libraries: `import gsap from 'gsap'`, `import Lenis from 'lenis'`
 - Named imports for subpath/local: `import { ScrollTrigger } from 'gsap/ScrollTrigger'`
 - Named imports for local modules: `import { initHover } from './animations/hover.js'`
 - Order: third-party defaults → third-party named → local relative
@@ -58,11 +59,12 @@ img/
 ### Strings
 - Single quotes for all JS strings (`'expo.out'` not `"expo.out"`)
 - Template literals (backticks) only for interpolation or multi-line strings
+- `\u20A6` for Naira symbol if needed
 
 ### Functions
 - Named `function` declarations for all module-level functions
 - Arrow functions for callbacks, event handlers, iteration, GSAP callbacks
-- Single-param arrows omit parens in `.forEach()` but include in event listeners
+- Single-param arrows omit parens in `.forEach()` but use parens in event listeners
 
 ### Exports
 - Named exports only — `export function initX()` inline on declaration
@@ -70,7 +72,7 @@ img/
 
 ### Naming
 - camelCase: variables, functions, parameters, object keys
-- ALL_CAPS: only for `CONFIG` object (module-level constants config)
+- ALL_CAPS: only for `CONFIG` object (module-level constants config). Note: `var` is used in focus.js (intentional, module-wide pattern).
 - PascalCase: third-party constructors (`Lenis`, `ScrollTrigger`)
 - CSS classes: BEM (`hero__row`, `hero__img`, `hero__row--desktop`)
 - CSS custom properties: kebab-case (`--color-primary`, `--space-lg`)
@@ -92,46 +94,66 @@ img/
 ### Comments & JSDoc
 - None present in codebase. The code relies entirely on descriptive identifier names.
 
-### DOM & Animations
+## Key Interaction Patterns
+
+### Focus Mode Entry (openFocus)
+1. Kill hover tweens, clear z-index on clicked image
+2. Record `getBoundingClientRect()` (First position)
+3. Calculate target rect via `calculateTargetRect()` (centered, accounting for panel)
+4. Create overlay (z-index: 100), gallery (z-index: 101), FLIP clone (z-index: 102), panel (z-index: 102), indicator (z-index: 103)
+5. FLIP clone animates from grid position to gallery position using GSAP `x`, `y`, `scaleX`, `scaleY` with `transformOrigin: '0 0'`
+6. On FLIP complete: clone fades out, gallery fades in, panel slides in, indicator appears
+
+### Gallery Scroll (onGalleryScroll)
+- Listens to native `scroll` event on gallery element (Lenis passes through via `data-lenis-prevent`)
+- Computes overlap ratio for each image against gallery's visible rect
+- Fully visible images: opacity 1, blur 0px
+- Partially/not visible images: opacity 0.4, blur 8px
+- Updates indicator's active thumbnail and counter
+
+### Scroll Indicator (desktop only)
+- Fixed left, vertically centered, frosted glass pill (blur 12px, 70% white)
+- Shows "Scroll" label, counter (01/04), and 4 image thumbnails
+- Active thumbnail has 2px black outline; inactive ones at 30% opacity
+
+### Panel
+- 332px wide, right-aligned, bottom-aligned on desktop
+- Contains: collection name (uppercase, 12px, stone-400), product name (15px, stone-800), price (25px, Anton bold), description (17px, stone-600), delivery info, "Add to Cart" button (40px, stone-800 bg, white text)
+- On mobile: below the horizontal scroll gallery
+
+## State Management
+- Module-level `let` variables with guards against re-entrance
+- Pattern: `let isFocusActive = false; let isClosing = false; let focusData = null;`
+- `focusData` stores all runtime state for the current focus session (img, clone, gallery, overlay, panelGroup, indicator, allImages)
+- Guards at top of each entry/exit function with early returns
+
+## DOM & Animations
 - Use `document.querySelectorAll()` / `el.closest()` for DOM traversal
 - GSAP for all animations (no CSS transitions/animations)
 - Animate only `transform` and `opacity` for 60fps compositor performance
 - Use `gsap.to()` for forward animations, `gsap.fromTo()` when starting from a non-default state
 - `gsap.killTweensOf()` before animating an element to prevent conflicts
 - Use `overwrite: 'auto'` on GSAP tweens for interruption safety
-
-### Focus Mode (FLIP Animation)
-- Record element's `getBoundingClientRect()` = "First"
-- Clone element positioned at that rect
-- Calculate target rect = "Last"
-- Animate clone using only `x`, `y`, `scaleX`, `scaleY` (no `left/top/width/height` animation)
-- `transformOrigin: '0 0'` when scaling
-- Use `gsap.getProperty()` to read current transform values for safe reverse
 - Use `will-change: transform, opacity` on animated clones
 
-### State Management
-- Module-level `let` variables with guards against re-entrance
-- Pattern: `let isXActive = false; let isClosing = false;` with early returns
-- State stored in a nullable object (`let focusData = null`)
+## Lenis Integration
+- Lenis intercepts all wheel/trackpad events by default
+- Add `data-lenis-prevent` attribute to elements that need native scroll (gallery)
+- Lenis is destroyed/recreated if `initSmoothScroll()` runs again (avoid via singleton guard)
 
-### Responsive / Device Handling
-- Check `window.matchMedia('(pointer: fine)')` to gate hover-only interactions
-- Mobile rows and desktop rows both exist in DOM; toggled via CSS `display: none`
+## Responsive Breakpoints
+- ≤ 480px: 2-column grid, `--space-md` padding
+- 481–768px: 3-column grid, `--space-md` padding
+- ≥ 769px: 7-column grid, `--space-lg` padding
+- `isMobile()` helper checks `window.innerWidth < 769`
+- `(pointer: fine)` media query gates hover-only interactions
 
-### Media / Images
-- WebP with PNG fallback in `img/`
-- Images use `loading="lazy"` and explicit `width/height` attributes
-- Use `object-fit: cover` for grid images
-
-### Scroll Lock
-- Toggle `body.focus-active` CSS class (which sets `overflow: hidden`)
-- Use CSS class over inline style for scroll locking
-
-### CSS Conventions
+## CSS Conventions
 - Plain CSS (no preprocessor)
 - CSS custom properties in `:root` for all design tokens
 - `@import` for Google Fonts at top
 - Reset via `* { box-sizing: border-box; margin: 0; padding: 0; }`
+- `prefers-reduced-motion` media query at bottom of stylesheet
 
 ## What NOT To Do
 - Don't add a framework (React/Vue/etc.) without explicit request
@@ -140,3 +162,4 @@ img/
 - Don't create `.env` or commit secrets
 - Don't introduce backend/database logic
 - Don't add npm packages unnecessarily (only GSAP + Lenis are used)
+- Don't create root-level `js/` or `css/` directories — all source lives under `src/`
