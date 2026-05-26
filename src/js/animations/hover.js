@@ -7,15 +7,19 @@ const CONFIG = {
   durationLeave: 0.5,
   easeEnter: 'expo.out',
   easeLeave: 'power2.out',
-  zIndexBase: 1,
   zIndexHover: 10,
 };
 
-const state = {
-  activeImg: null,
-};
+const rowState = new WeakMap();
 
-function onEnter(img, allImages) {
+function getRowState(row) {
+  if (!rowState.has(row)) {
+    rowState.set(row, { activeImg: null });
+  }
+  return rowState.get(row);
+}
+
+function onEnter(img, images, state) {
   if (state.activeImg && state.activeImg !== img) {
     gsap.to(state.activeImg, {
       scale: 1,
@@ -41,7 +45,7 @@ function onEnter(img, allImages) {
 
   img.style.zIndex = CONFIG.zIndexHover;
 
-  allImages.forEach(other => {
+  images.forEach(other => {
     if (other !== img) {
       gsap.to(other, {
         opacity: CONFIG.opacityDim,
@@ -54,24 +58,24 @@ function onEnter(img, allImages) {
   });
 }
 
-function onLeaveAll(allImages) {
+function onLeaveRow(images, state) {
   state.activeImg = null;
 
-  gsap.to(allImages, {
+  gsap.to(images, {
     opacity: 1,
     scale: 1,
     duration: CONFIG.durationLeave,
     ease: CONFIG.easeLeave,
     overwrite: 'auto',
     onComplete: () => {
-      allImages.forEach(img => {
+      images.forEach(img => {
         img.style.zIndex = '';
       });
     },
   });
 }
 
-function onLeaveImage(e, img, allImages) {
+function onLeaveImage(e, img, images, state) {
   const related = e.relatedTarget;
   if (related && related.closest && related.closest('.hero__img')) {
     const nextImg = related.closest('.hero__img');
@@ -90,23 +94,38 @@ function onLeaveImage(e, img, allImages) {
     return;
   }
 
-  onLeaveAll(allImages);
+  onLeaveRow(images, state);
 }
 
 export function initHover() {
-  const allImages = document.querySelectorAll('.hero__img');
-  if (allImages.length < 2) return;
+  const rows = document.querySelectorAll('.hero__row');
+  if (!rows.length) return;
 
   const mediaQuery = window.matchMedia('(pointer: fine)');
   if (!mediaQuery.matches) return;
 
-  allImages.forEach(img => {
-    img.addEventListener('mouseenter', () => {
-      onEnter(img, allImages);
+  rows.forEach(row => {
+    const images = row.querySelectorAll('.hero__img');
+    if (images.length < 2) return;
+
+    const state = getRowState(row);
+
+    images.forEach(img => {
+      img.addEventListener('mouseenter', () => {
+        if (document.body.classList.contains('focus-active')) return;
+        onEnter(img, images, state);
+      });
+
+      img.addEventListener('mouseleave', (e) => {
+        if (document.body.classList.contains('focus-active')) return;
+        onLeaveImage(e, img, images, state);
+      });
     });
 
-    img.addEventListener('mouseleave', (e) => {
-      onLeaveImage(e, img, allImages);
+    row.addEventListener('mouseleave', () => {
+      if (state.activeImg && !document.body.classList.contains('focus-active')) {
+        onLeaveRow(images, state);
+      }
     });
   });
 }

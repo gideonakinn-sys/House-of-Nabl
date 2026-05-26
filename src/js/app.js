@@ -15,9 +15,3 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
