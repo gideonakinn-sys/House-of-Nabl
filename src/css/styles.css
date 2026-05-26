@@ -160,6 +160,7 @@ button {
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-sm);
   overflow: hidden;
+  min-height: 220px;
 }
 
 .hero__row--desktop {
@@ -181,6 +182,7 @@ button {
 
   .hero__row {
     grid-template-columns: repeat(3, 1fr);
+    min-height: 190px;
   }
 }
 
@@ -192,6 +194,7 @@ button {
 
   .hero__row {
     grid-template-columns: repeat(7, 1fr);
+    min-height: 125px;
   }
 
   .hero__row--mobile {
