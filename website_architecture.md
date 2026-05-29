@@ -14,29 +14,40 @@ A **static-first, serverless** web application that displays a product gallery a
 | Animations | GSAP 3.15 (`gsap`, `gsap/ScrollTrigger`) |
 | Smooth Scroll | Lenis 1.3.23 |
 | Styling | Plain CSS with custom properties |
-| Fonts | Roboto (body), Anton (headings) |
-| Data | Static `data/products.json` |
+| Fonts | Roboto (body), Anton (headings), Motterdam (designer notes) |
+| Data | Static `data/products.json` (fetched at runtime) |
 
 ## 3. Source Structure
 
 ```
-├── index.html              Entry point (loads /src/js/app.js + /src/css/styles.css)
+├── index.html                  Entry point (loads /src/js/app.js + /src/css/styles.css)
 ├── src/
-│   ├── css/styles.css      All styles (design tokens, layout, components)
+│   ├── css/styles.css          All styles (design tokens, layout, components)
 │   └── js/
 │       ├── app.js              Init orchestrator
 │       ├── smoothScroll.js     Lenis setup + ScrollTrigger integration
-│       └── animations/
-│           ├── reveal.js       Scroll-triggered fade/y reveal (GSAP ScrollTrigger)
-│           ├── hover.js        Gallery image hover — dim others in same row, scale up
-│           └── focus.js        Click-to-expand FLIP animation + product detail panel
+│       ├── utils/
+│       │   ├── dom.js          isMobile(), lockScroll(), unlockScroll(), formatPrice(), prefersReducedMotion()
+│       │   └── data.js         fetchProducts(), getProductById()
+│       ├── animations/
+│       │   ├── reveal.js       Scroll-triggered fade/y reveal (GSAP ScrollTrigger)
+│       │   └── hover.js        Gallery image hover — dim others in same row, scale up
+│       └── focus/
+│           ├── index.js        openFocus(), closeFocus(), initFocus() — orchestrator
+│           ├── state.js        Shared focus state (isFocusActive, isClosing, focusData, cartCount)
+│           ├── overlay.js      Overlay creation and animation
+│           ├── clone.js        FLIP clone creation, flipIn(), flipOut()
+│           ├── gallery.js      Gallery creation, rAF-throttled scroll handler, scrollGalleryTo()
+│           ├── panel.js        Product panel + CTA button, dynamic sizes from JSON
+│           ├── indicator.js    Scroll indicator with clickable thumbnails
+│           └── note.js         Designer's note creation, positioning, animation
 ├── data/
-│   └── products.json       Static product catalog (name, price, variants)
-├── public/                 Vite's static public dir (served at /)
-│   ├── data/products.json  Product JSON for production
-│   └── img/                WebP copies of product images
-├── img/                    Source image files (PNG + WebP)
-├── designsystem.md         Design token reference
+│   └── products.json           Single source of truth for product catalog
+├── public/                     Vite's static public dir (served at /)
+│   ├── data/products.json      Production copy of product JSON
+│   ├── img/                    WebP product images + logo
+│   └── font/                   Self-hosted fonts (FREESCPT.TTF, Motterdam-K74zp.ttf)
+├── designsystem.md             Design token reference
 ├── package.json
 └── vite.config.js
 ```
@@ -44,8 +55,7 @@ A **static-first, serverless** web application that displays a product gallery a
 ## 4. Module Responsibilities
 
 ### `app.js`
-- Imports all 4 modules and calls their `init*()` functions on DOMContentLoaded
-- Lenis instance returned but unused in this scope (accessible via `getLenis()` export)
+- Imports all modules and calls their `init*()` functions on DOMContentLoaded
 
 ### `smoothScroll.js`
 - Creates Lenis instance with custom easing and wheel smoothing
@@ -53,10 +63,20 @@ A **static-first, serverless** web application that displays a product gallery a
 - Syncs Lenis scroll with ScrollTrigger via `gsap.ticker.add()`
 - Exports `initSmoothScroll()` and `getLenis()`
 
+### `utils/dom.js`
+- `isMobile()` — checks `window.innerWidth < 769`
+- `lockScroll()` / `unlockScroll()` — body scroll lock with scrollbar-width compensation
+- `formatPrice()` — formats number with Naira symbol
+- `prefersReducedMotion()` — checks `prefers-reduced-motion` media query
+
+### `utils/data.js`
+- `fetchProducts()` — fetches and caches `/data/products.json`
+- `getProductById(data, id)` — looks up product by ID
+
 ### `animations/reveal.js`
-- Targets `.hero__img` elements
+- Targets `.hero__row` elements
 - Animates `y: 60 → 0` and `opacity: 0 → 1` via ScrollTrigger
-- Staggered reveal with 0.15s delay between images
+- Staggered reveal with 0.15s delay between rows
 
 ### `animations/hover.js`
 - Targets `.hero__row` elements, attaches per-row state via `WeakMap`
@@ -65,15 +85,43 @@ A **static-first, serverless** web application that displays a product gallery a
 - On `mouseleave` the row entirely: restore all images
 - Guards against activation during focus mode (`body.focus-active` check)
 
-### `animations/focus.js`
-- Click-to-expand FLIP animation using GSAP transforms (`x`, `y`, `scaleX`, `scaleY`)
-- Creates a fixed-position clone of the clicked image, animated from grid position to centered target
-- Overlay with `backdrop-filter: blur(50px)` and stone-50 tint at 70% opacity
-- Product detail panel (300px wide, right-aligned, bottom-aligned on desktop; stacked below on mobile)
-- Panel content: collection name, product name, price, description, delivery info, "Add to Cart" button
-- Product data mapped by image filename in a local `productDataMap`
-- `isClosing` guard prevents double-trigger; `closeFocus()` reads current transforms for safe reverse
-- Escape key and overlay click both close focus mode
+### `focus/index.js`
+- Orchestrator: `openFocus()`, `closeFocus()`, `initFocus()`
+- Creates all focus mode elements via sub-modules
+- Manages FLIP animation sequence
+- Replaces header logo with close button
+- Stores runtime state via `focus/state.js`
+
+### `focus/state.js`
+- Module-level state with getter/setter functions
+- `isFocusActive`, `isClosing`, `focusData`, `cartCount`
+
+### `focus/overlay.js`
+- Creates overlay element with `bg-grid-dots` and ARIA attributes
+- `animateOverlayIn()` / `animateOverlayOut()`
+
+### `focus/clone.js`
+- `createClone()` — clones clicked image at its grid position
+- `flipOut()` — animates clone back to origin with `prefers-reduced-motion` support
+
+### `focus/gallery.js`
+- `createGallery()` — creates scrollable gallery with mobile/desktop variants
+- `initGalleryScroll()` — attaches rAF-throttled scroll handler
+- `scrollGalleryTo()` — shared scroll-to-image function
+
+### `focus/panel.js`
+- `createPanel()` — creates product detail panel with dynamic sizes from JSON
+- `createPanelBtn()` — creates "Add to Cart" CTA button
+- `createPanelGroup()` — composes panel + button with mobile/desktop positioning
+
+### `focus/indicator.js`
+- `createIndicator()` — creates scroll indicator with thumbnails
+- `initIndicatorClicks()` — attaches thumbnail click-to-scroll handlers
+
+### `focus/note.js`
+- `createDesignerNote()` — creates designer's note element
+- `positionNote()` — positions note aligned with panel top
+- `animateNoteIn()` / `animateNoteOut()` — GSAP opacity animations
 
 ## 5. Data Flow
 
@@ -86,19 +134,20 @@ DOMContentLoaded
 
 User clicks image
   → openFocus(img)
-  → getProductData(src)    Looks up product by image filename
+  → fetchProducts()        Fetches /data/products.json (cached after first call)
+  → getProductById(id)     Looks up product by data-product-id
   → getBoundingClientRect() → calculateTargetRect() → FLIP deltas
-  → clone created at rect, appended to body
-  → other images fade to 0
+  → createOverlay/Clone/Gallery/Panel/Indicator/Note via sub-modules
   → clone animated to center via GSAP transforms
-  → panel created + animated in (with "Add to Cart" button)
+  → panel animated in with "Add to Cart" button
 
-User clicks overlay / presses Escape
+User clicks overlay / presses Escape / clicks Close
   → closeFocus()
-  → clone animated back to origin transforms
+  → clone animated back to origin via flipOut()
   → overlay + panel animate out
   → images restored to opacity 1
-  → clone + overlay + panel removed from DOM
+  → clone + overlay + content wrapper removed from DOM
+  → original logo element restored
 ```
 
 ## 6. Responsive Breakpoints
@@ -115,8 +164,13 @@ Both sets exist in DOM simultaneously.
 
 ## 7. Key Design Decisions
 
-- **No clone on focus exit**: Original image stays in grid at `opacity: 0`. Clone animates back → removed → original fades to `opacity: 1`. No overlap.
+- **Single data source**: All product data lives in `data/products.json`, fetched at runtime. No more hardcoded `productDataMap` in JS.
+- **`data-product-id` linking**: Gallery images link to products via `data-product-id` attribute instead of regex filename parsing.
+- **Modular focus mode**: Focus logic decomposed into 8 sub-modules under `src/js/focus/` for maintainability.
+- **CSS classes over inline styles**: Layout/positioning moved to CSS classes. Only truly dynamic values (runtime-calculated positions) remain as inline styles.
+- **CSS custom properties for z-index**: All z-index values use `--z-*` tokens instead of magic numbers.
+- **Logo element reference**: Original logo stored as DOM element reference (not HTML string) for safe restoration.
+- **rAF-throttled gallery scroll**: Scroll handler uses `requestAnimationFrame` to prevent layout thrashing.
+- **`prefers-reduced-motion` support**: `flipOut()` sets final state immediately when reduced motion is preferred.
+- **Scrollbar compensation**: `lockScroll()` measures scrollbar width and applies `padding-right` to prevent layout shift.
 - **CSS class for scroll lock** (`body.focus-active`) instead of inline style.
-- **`var` used in focus.js** (not `const`/`let`) — legacy pattern, acceptable for consistency within that module.
-- **Product data disconnected from JSON** — `productDataMap` in focus.js is a separate data source from `data/products.json`. Kept intentionally to allow image-filename-based lookup without requiring JSON restructuring.
-- **`prefers-reduced-motion`** respected via CSS media query (GSAP animations still run but final state is correct).

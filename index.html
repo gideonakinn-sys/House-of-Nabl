@@ -13,7 +13,8 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23A4674C'/><text x='16' y='22' text-anchor='middle' fill='%23FAFAF9' font-size='18' font-family='serif'>N</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/font/Motterdam-K74zp.ttf" as="font" type="font/ttf" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/css/styles.css">
   <title>Nabl — Clothing with Intention</title>
 </head>
@@ -25,10 +26,10 @@
         <img src="/img/Logo.webp" alt="Nabl" class="header__logo-img" width="32" height="32" />
       </a>
       <span class="header__brand">House of Nabl</span>
-      <div class="header__right">
-        <span class="header__size-guide">Size Guide</span>
+      <nav class="header__right" aria-label="Header actions">
+        <button type="button" class="header__size-guide">Size Guide</button>
         <span class="header__cart">Cart (0)</span>
-      </div>
+      </nav>
     </div>
   </header>
 
@@ -36,46 +37,46 @@
     <section class="hero">
       <div class="container">
         <div class="hero__row hero__row--mobile">
-          <img src="/img/image%203.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%204.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%205.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%203.webp" alt="Oxford Overshirt" class="hero__img" data-product-id="nabl-001" loading="lazy" />
+          <img src="/img/image%204.webp" alt="Relaxed Denim Jean" class="hero__img" data-product-id="nabl-002" loading="lazy" />
+          <img src="/img/image%205.webp" alt="Pique Polo" class="hero__img" data-product-id="nabl-003" loading="lazy" />
         </div>
         <div class="hero__row hero__row--mobile">
-          <img src="/img/image%209.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2010.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2011.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%209.webp" alt="Wool Blend Crew" class="hero__img" data-product-id="nabl-004" loading="lazy" />
+          <img src="/img/image%2010.webp" alt="Canvas Field Jacket" class="hero__img" data-product-id="nabl-005" loading="lazy" />
+          <img src="/img/image%2011.webp" alt="Linen Relaxed Shirt" class="hero__img" data-product-id="nabl-006" loading="lazy" />
         </div>
         <div class="hero__row hero__row--mobile">
-          <img src="/img/image%2014.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2015.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2016.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%2014.webp" alt="Organic Cotton Tee" class="hero__img" data-product-id="nabl-007" loading="lazy" />
+          <img src="/img/image%2015.webp" alt="Structured Bomber" class="hero__img" data-product-id="nabl-008" loading="lazy" />
+          <img src="/img/image%2016.webp" alt="Cashmere Blend Scarf" class="hero__img" data-product-id="nabl-009" loading="lazy" />
         </div>
         <div class="hero__row hero__row--mobile">
-          <img src="/img/image%2018.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2020.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2025.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%2018.webp" alt="Italian Leather Belt" class="hero__img" data-product-id="nabl-010" loading="lazy" />
+          <img src="/img/image%2020.webp" alt="Raw Denim Jacket" class="hero__img" data-product-id="nabl-011" loading="lazy" />
+          <img src="/img/image%2025.webp" alt="Woven Silk Tie" class="hero__img" data-product-id="nabl-012" loading="lazy" />
         </div>
         <div class="hero__row hero__row--mobile">
-          <img src="/img/image%2026.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2027.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%2026.webp" alt="Cotton Twill Cap" class="hero__img" data-product-id="nabl-013" loading="lazy" />
+          <img src="/img/image%2027.webp" alt="Lambswool Scarf" class="hero__img" data-product-id="nabl-014" loading="lazy" />
         </div>
         <div class="hero__row hero__row--desktop">
-          <img src="/img/image%203.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%204.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%205.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%209.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2010.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2011.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2014.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%203.webp" alt="Oxford Overshirt" class="hero__img" data-product-id="nabl-001" loading="eager" fetchpriority="high" />
+          <img src="/img/image%204.webp" alt="Relaxed Denim Jean" class="hero__img" data-product-id="nabl-002" loading="eager" fetchpriority="high" />
+          <img src="/img/image%205.webp" alt="Pique Polo" class="hero__img" data-product-id="nabl-003" loading="lazy" />
+          <img src="/img/image%209.webp" alt="Wool Blend Crew" class="hero__img" data-product-id="nabl-004" loading="lazy" />
+          <img src="/img/image%2010.webp" alt="Canvas Field Jacket" class="hero__img" data-product-id="nabl-005" loading="lazy" />
+          <img src="/img/image%2011.webp" alt="Linen Relaxed Shirt" class="hero__img" data-product-id="nabl-006" loading="lazy" />
+          <img src="/img/image%2014.webp" alt="Organic Cotton Tee" class="hero__img" data-product-id="nabl-007" loading="lazy" />
         </div>
         <div class="hero__row hero__row--desktop">
-          <img src="/img/image%2015.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2016.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2018.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2020.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2025.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2026.webp" alt="" class="hero__img" loading="lazy" />
-          <img src="/img/image%2027.webp" alt="" class="hero__img" loading="lazy" />
+          <img src="/img/image%2015.webp" alt="Structured Bomber" class="hero__img" data-product-id="nabl-008" loading="lazy" />
+          <img src="/img/image%2016.webp" alt="Cashmere Blend Scarf" class="hero__img" data-product-id="nabl-009" loading="lazy" />
+          <img src="/img/image%2018.webp" alt="Italian Leather Belt" class="hero__img" data-product-id="nabl-010" loading="lazy" />
+          <img src="/img/image%2020.webp" alt="Raw Denim Jacket" class="hero__img" data-product-id="nabl-011" loading="lazy" />
+          <img src="/img/image%2025.webp" alt="Woven Silk Tie" class="hero__img" data-product-id="nabl-012" loading="lazy" />
+          <img src="/img/image%2026.webp" alt="Cotton Twill Cap" class="hero__img" data-product-id="nabl-013" loading="lazy" />
+          <img src="/img/image%2027.webp" alt="Lambswool Scarf" class="hero__img" data-product-id="nabl-014" loading="lazy" />
         </div>
       </div>
     </section>
@@ -84,9 +85,9 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__col footer__col--left">
-        <span>Instagram</span>
-        <span>info@houseofnabl.com</span>
-        <span>+234 8064361140</span>
+        <span><a href="https://instagram.com/houseofnabl" target="_blank" rel="noopener noreferrer">Instagram</a></span>
+        <span><a href="mailto:info@houseofnabl.com">info@houseofnabl.com</a></span>
+        <span><a href="tel:+2348064361140">+234 8064361140</a></span>
       </div>
       <div class="footer__col footer__col--center">House of Nabl</div>
       <div class="footer__col footer__col--right">

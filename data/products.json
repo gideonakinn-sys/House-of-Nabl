@@ -5,116 +5,211 @@
     {
       "id": "nabl-001",
       "name": "Oxford Overshirt",
-      "description": "A heavyweight oxford cloth overshirt built for layering. Garment-dyed for depth of color and softened from the first wear. Features a classic button-down collar, box pleat, and locker loop.",
+      "description": "A heavyweight oxford cloth overshirt built for layering. Garment-dyed for depth of color and softened from the first wear.",
+      "collection": "Fall 2025",
       "price": 18500,
-      "compare_at": 22000,
       "category": "shirts",
-      "images": [
-        "img/overshirt-front.jpg",
-        "img/overshirt-detail.jpg"
+      "inStock": true,
+      "imageKey": "image 3",
+      "colors": [
+        { "name": "Slate", "hex": "#5B5B5B" },
+        { "name": "Clay", "hex": "#A4674C" }
       ],
-      "variants": [
-        { "sku": "ovs-001-slate-s", "size": "S", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
-        { "sku": "ovs-001-slate-m", "size": "M", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
-        { "sku": "ovs-001-slate-l", "size": "L", "color": "Slate", "colorHex": "#5B5B5B", "stock": true },
-        { "sku": "ovs-001-slate-xl", "size": "XL", "color": "Slate", "colorHex": "#5B5B5B", "stock": false },
-        { "sku": "ovs-001-clay-s", "size": "S", "color": "Clay", "colorHex": "#A4674C", "stock": true },
-        { "sku": "ovs-001-clay-m", "size": "M", "color": "Clay", "colorHex": "#A4674C", "stock": true },
-        { "sku": "ovs-001-clay-l", "size": "L", "color": "Clay", "colorHex": "#A4674C", "stock": true },
-        { "sku": "ovs-001-clay-xl", "size": "XL", "color": "Clay", "colorHex": "#A4674C", "stock": true }
-      ]
+      "sizes": ["S", "M", "L", "XL"]
     },
     {
       "id": "nabl-002",
       "name": "Relaxed Denim Jean",
-      "description": "A straight-leg denim jean with a relaxed top block and gentle taper from the knee. Cut from 13.75oz Japanese selvedge denim with a comfortable amount of stretch.",
+      "description": "A straight-leg denim jean with a relaxed top block and gentle taper from the knee. Cut from 13.75oz Japanese selvedge denim.",
+      "collection": "Fall 2025",
       "price": 22000,
       "category": "bottoms",
-      "images": [
-        "img/denim-front.jpg",
-        "img/denim-fit.jpg"
+      "inStock": true,
+      "imageKey": "image 4",
+      "colors": [
+        { "name": "Indigo", "hex": "#1A2847" },
+        { "name": "Black", "hex": "#1C1917" }
       ],
-      "variants": [
-        { "sku": "rdj-001-indigo-28", "size": "28", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-29", "size": "29", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-30", "size": "30", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-31", "size": "31", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-32", "size": "32", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-33", "size": "33", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-indigo-34", "size": "34", "color": "Indigo", "colorHex": "#1A2847", "stock": true },
-        { "sku": "rdj-001-black-28", "size": "28", "color": "Black", "colorHex": "#1C1917", "stock": true },
-        { "sku": "rdj-001-black-29", "size": "29", "color": "Black", "colorHex": "#1C1917", "stock": true },
-        { "sku": "rdj-001-black-30", "size": "30", "color": "Black", "colorHex": "#1C1917", "stock": false },
-        { "sku": "rdj-001-black-31", "size": "31", "color": "Black", "colorHex": "#1C1917", "stock": true },
-        { "sku": "rdj-001-black-32", "size": "32", "color": "Black", "colorHex": "#1C1917", "stock": true },
-        { "sku": "rdj-001-black-33", "size": "33", "color": "Black", "colorHex": "#1C1917", "stock": true },
-        { "sku": "rdj-001-black-34", "size": "34", "color": "Black", "colorHex": "#1C1917", "stock": true }
-      ]
+      "sizes": ["28", "29", "30", "31", "32", "33", "34"]
     },
     {
       "id": "nabl-003",
       "name": "Pique Polo",
-      "description": "A refined take on the classic polo. Cut from organic cotton pique with a ribbed collar and two-button placket. The fit is tailored through the body without being slim.",
+      "description": "A refined take on the classic polo. Cut from organic cotton pique with a ribbed collar and two-button placket.",
+      "collection": "Summer 2025",
       "price": 14000,
-      "compare_at": 17500,
       "category": "shirts",
-      "images": [
-        "img/polo-front.jpg",
-        "img/polo-collar.jpg"
+      "inStock": true,
+      "imageKey": "image 5",
+      "colors": [
+        { "name": "Cream", "hex": "#F5F0E8" },
+        { "name": "Olive", "hex": "#5C6B4F" }
       ],
-      "variants": [
-        { "sku": "pp-001-cream-s", "size": "S", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
-        { "sku": "pp-001-cream-m", "size": "M", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
-        { "sku": "pp-001-cream-l", "size": "L", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
-        { "sku": "pp-001-cream-xl", "size": "XL", "color": "Cream", "colorHex": "#F5F0E8", "stock": true },
-        { "sku": "pp-001-olive-s", "size": "S", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
-        { "sku": "pp-001-olive-m", "size": "M", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
-        { "sku": "pp-001-olive-l", "size": "L", "color": "Olive", "colorHex": "#5C6B4F", "stock": false },
-        { "sku": "pp-001-olive-xl", "size": "XL", "color": "Olive", "colorHex": "#5C6B4F", "stock": true }
-      ]
+      "sizes": ["S", "M", "L", "XL"]
     },
     {
       "id": "nabl-004",
       "name": "Wool Blend Crew",
       "description": "A heavyweight knit crewneck in a merino-cotton blend. Ribbed cuffs and hem, reinforced shoulder seams. Everyday warmth with an elevated hand feel.",
+      "collection": "Fall 2025",
       "price": 19500,
       "category": "knitwear",
-      "images": [
-        "img/crew-front.jpg",
-        "img/crew-detail.jpg"
+      "inStock": true,
+      "imageKey": "image 9",
+      "colors": [
+        { "name": "Charcoal", "hex": "#44403C" },
+        { "name": "Oat", "hex": "#D6D3D1" }
       ],
-      "variants": [
-        { "sku": "wbc-001-charcoal-s", "size": "S", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
-        { "sku": "wbc-001-charcoal-m", "size": "M", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
-        { "sku": "wbc-001-charcoal-l", "size": "L", "color": "Charcoal", "colorHex": "#44403C", "stock": true },
-        { "sku": "wbc-001-charcoal-xl", "size": "XL", "color": "Charcoal", "colorHex": "#44403C", "stock": false },
-        { "sku": "wbc-001-oat-s", "size": "S", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
-        { "sku": "wbc-001-oat-m", "size": "M", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
-        { "sku": "wbc-001-oat-l", "size": "L", "color": "Oat", "colorHex": "#D6D3D1", "stock": true },
-        { "sku": "wbc-001-oat-xl", "size": "XL", "color": "Oat", "colorHex": "#D6D3D1", "stock": true }
-      ]
+      "sizes": ["S", "M", "L", "XL"]
     },
     {
       "id": "nabl-005",
       "name": "Canvas Field Jacket",
-      "description": "A rugged field jacket cut from waxed cotton canvas. Unlined for year-round versatility, with a full snap front, two patch pockets, and an adjustable waist. Built to age.",
+      "description": "A rugged field jacket cut from waxed cotton canvas. Unlined for year-round versatility, with a full snap front and two patch pockets.",
+      "collection": "Fall 2025",
       "price": 28500,
-      "compare_at": 34000,
       "category": "outerwear",
-      "images": [
-        "img/jacket-front.jpg",
-        "img/jacket-back.jpg"
+      "inStock": true,
+      "imageKey": "image 10",
+      "colors": [
+        { "name": "Tan", "hex": "#C4A882" },
+        { "name": "Olive", "hex": "#5C6B4F" }
       ],
-      "variants": [
-        { "sku": "cfj-001-tan-s", "size": "S", "color": "Tan", "colorHex": "#C4A882", "stock": true },
-        { "sku": "cfj-001-tan-m", "size": "M", "color": "Tan", "colorHex": "#C4A882", "stock": true },
-        { "sku": "cfj-001-tan-l", "size": "L", "color": "Tan", "colorHex": "#C4A882", "stock": true },
-        { "sku": "cfj-001-tan-xl", "size": "XL", "color": "Tan", "colorHex": "#C4A882", "stock": true },
-        { "sku": "cfj-001-olive-s", "size": "S", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
-        { "sku": "cfj-001-olive-m", "size": "M", "color": "Olive", "colorHex": "#5C6B4F", "stock": true },
-        { "sku": "cfj-001-olive-l", "size": "L", "color": "Olive", "colorHex": "#5C6B4F", "stock": false },
-        { "sku": "cfj-001-olive-xl", "size": "XL", "color": "Olive", "colorHex": "#5C6B4F", "stock": true }
-      ]
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "nabl-006",
+      "name": "Linen Relaxed Shirt",
+      "description": "A relaxed-fit linen shirt crafted from pre-washed European flax. Mother-of-pearl buttons, curved hem, and a camp collar.",
+      "collection": "Summer 2025",
+      "price": 16000,
+      "category": "shirts",
+      "inStock": true,
+      "imageKey": "image 11",
+      "colors": [
+        { "name": "Natural", "hex": "#E8E0D5" },
+        { "name": "Slate", "hex": "#5B5B5B" }
+      ],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "nabl-007",
+      "name": "Organic Cotton Tee",
+      "description": "A heavy-weight organic cotton t-shirt with a relaxed fit. Rib-knit collar, taped shoulder seams, and a chest pocket.",
+      "collection": "Summer 2025",
+      "price": 8000,
+      "category": "shirts",
+      "inStock": true,
+      "imageKey": "image 14",
+      "colors": [
+        { "name": "White", "hex": "#FAFAF9" },
+        { "name": "Black", "hex": "#1C1917" }
+      ],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "nabl-008",
+      "name": "Structured Bomber",
+      "description": "A structured bomber jacket in waxed cotton shell. Ribbed cuffs and hem, two-way zip, and a quilted satin interior.",
+      "collection": "Fall 2025",
+      "price": 32000,
+      "category": "outerwear",
+      "inStock": false,
+      "imageKey": "image 15",
+      "colors": [
+        { "name": "Olive", "hex": "#5C6B4F" },
+        { "name": "Black", "hex": "#1C1917" }
+      ],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "nabl-009",
+      "name": "Cashmere Blend Scarf",
+      "description": "A lightweight cashmere-merino blend scarf with hand-fringed edges. Generous proportions for versatile styling.",
+      "collection": "Fall 2025",
+      "price": 8500,
+      "category": "accessories",
+      "inStock": true,
+      "imageKey": "image 16",
+      "colors": [
+        { "name": "Charcoal", "hex": "#44403C" },
+        { "name": "Oat", "hex": "#D6D3D1" }
+      ],
+      "sizes": ["One Size"]
+    },
+    {
+      "id": "nabl-010",
+      "name": "Italian Leather Belt",
+      "description": "A full-grain Italian leather belt with a solid brass buckle. Tapered design with Chicago screw construction.",
+      "collection": "Summer 2025",
+      "price": 6500,
+      "category": "accessories",
+      "inStock": true,
+      "imageKey": "image 18",
+      "colors": [
+        { "name": "Tan", "hex": "#C4A882" },
+        { "name": "Black", "hex": "#1C1917" }
+      ],
+      "sizes": ["S", "M", "L"]
+    },
+    {
+      "id": "nabl-011",
+      "name": "Raw Denim Jacket",
+      "description": "A classic type-III denim jacket in unsanforized raw selvedge denim. Button front, chest pockets, and adjustable waist tabs.",
+      "collection": "Fall 2025",
+      "price": 26000,
+      "category": "outerwear",
+      "inStock": true,
+      "imageKey": "image 20",
+      "colors": [
+        { "name": "Indigo", "hex": "#1A2847" }
+      ],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "nabl-012",
+      "name": "Woven Silk Tie",
+      "description": "A hand-finished woven silk tie in a classic seven-fold construction. 8cm blade width with a subtle matte finish.",
+      "collection": "Summer 2025",
+      "price": 4500,
+      "category": "accessories",
+      "inStock": true,
+      "imageKey": "image 25",
+      "colors": [
+        { "name": "Slate", "hex": "#5B5B5B" },
+        { "name": "Clay", "hex": "#A4674C" }
+      ],
+      "sizes": ["One Size"]
+    },
+    {
+      "id": "nabl-013",
+      "name": "Cotton Twill Cap",
+      "description": "A structured six-panel cap in garment-washed cotton twill. Adjustable brass buckle closure and pre-curved peak.",
+      "collection": "Summer 2025",
+      "price": 5500,
+      "category": "accessories",
+      "inStock": true,
+      "imageKey": "image 26",
+      "colors": [
+        { "name": "Oat", "hex": "#D6D3D1" },
+        { "name": "Olive", "hex": "#5C6B4F" }
+      ],
+      "sizes": ["One Size"]
+    },
+    {
+      "id": "nabl-014",
+      "name": "Lambswool Scarf",
+      "description": "A pure lambswool scarf in a classic herringbone weave. Generous length with self-tipped fringed ends.",
+      "collection": "Fall 2025",
+      "price": 7500,
+      "category": "accessories",
+      "inStock": true,
+      "imageKey": "image 27",
+      "colors": [
+        { "name": "Charcoal", "hex": "#44403C" },
+        { "name": "Cream", "hex": "#F5F0E8" }
+      ],
+      "sizes": ["One Size"]
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Welcome to the official design system documentation for the website. This document establishes a cohesive visual language, ensuring consistency across all user interfaces, digital experiences, and component developments. 
 
-Our brand balances the elegant, editorial typography of **Anton** with the clean, geometric structure of **Questrial**, grounded in a natural, earthy neutral palette (**Stone**) and a distinct warm primary accent (**#A4674C**).
+Our brand balances the bold, editorial typography of **Anton** with the clean, legible structure of **Roboto**, grounded in a natural, earthy neutral palette (**Stone**) and a distinct warm primary accent (**#A4674C**).
 
 ---
 
@@ -41,28 +41,22 @@ The typography system relies on a mathematical proportional type scale with a **
 
 ### 2.1 Font Families
 * **Headings Font (Display, H1–H6):** `Anton`
-    * *Characteristics:* Elegant, editorial serif with rich contrast between thick and thin strokes. Used to evoke luxury, craftsmanship, and a structured editorial layout.
-* **Body & UI Font (Paragraphs, Links, Buttons, Inputs):** `Questrial`
+    * *Characteristics:* Bold, condensed display sans-serif with dramatic visual weight. Used to evoke luxury, craftsmanship, and a structured editorial layout.
+* **Body & UI Font (Paragraphs, Links, Buttons, Inputs):** `Roboto`
     * *Characteristics:* A modern, clean, geometric sans-serif font designed specifically for high digital legibility. Its open shapes maintain clarity at small sizes and complex interface layouts.
+* **Designer's Note Font:** `Motterdam`
+    * *Characteristics:* A handwritten script font for decorative, editorial notes. Used sparingly for designer's commentary.
 
 ### 2.2 Proportional Type Scale
-The website utilizes 13 explicit font size tokens to map every typographic instance from massive hero displays to tiny legal microcopy.
+The website utilizes explicit font size tokens to map every typographic instance from display headers to tiny legal microcopy.
 
-| Scale Token | Font Size (px) | Font Size (rem) | Recommended Font Family | Line Height | Semantic Application / Layout Role |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `font-size-130` | 130px | 6.190rem | `Anton` | 1.1 | **Display 1:** Used for oversized landing page heroes, large numerical metrics, or minimal splash headers. |
-| `font-size-108` | 108px | 5.143rem | `Anton` | 1.1 | **Display 2:** Supporting oversized headers, large intro typographic treatments. |
-| `font-size-90`  | 90px | 4.286rem | `Anton` | 1.15 | **Display 3:** Alternative hero headers or landing pages with dense copy layouts. |
-| `font-size-75`  | 75px | 3.571rem | `Anton` | 1.2 | **Heading 1 (Max):** Main page titles on primary interior landing pages. |
-| `font-size-63`  | 63px | 3.000rem | `Anton` | 1.2 | **Heading 1:** Standard top-level section title for standard pages. |
-| `font-size-52`  | 52px | 2.476rem | `Anton` | 1.25 | **Heading 2:** Primary sub-section heading within a webpage. |
-| `font-size-44`  | 44px | 2.095rem | `Anton` | 1.3 | **Heading 3:** Mid-level titles separating distinct text or card groups. |
-| `font-size-36`  | 36px | 1.714rem | `Anton` | 1.35 | **Heading 4:** Card component titles, descriptive group titles. |
-| `font-size-30`  | 30px | 1.429rem | `Anton` | 1.4 | **Heading 5:** Small sidebar headings, localized block descriptors. |
-| `font-size-25`  | 25px | 1.190rem | `Anton` | 1.4 | **Heading 6 / Lead Paragraph:** Bold section labels or introduction text blocks. |
-| `font-size-21`  | 21px | 1.000rem | `Questrial` | 1.6 | **Body Base (Regular):** **Standard baseline body text** for all articles, paragraphs, and extended prose. |
-| `font-size-17`  | 17px | 0.810rem | `Questrial` | 1.5 | **Body Small:** Form fields, inputs, button texts, metadata labels, navigation links. |
-| `font-size-15`  | 15px | 0.714rem | `Questrial` | 1.4 | **Caption / Legal:** Tooltips, form validation errors, copyright notices, micro-labels. |
+| CSS Token | Font Size | Recommended Font Family | Line Height | Semantic Application / Layout Role |
+| :--- | :--- | :--- | :--- | :--- |
+| `--font-size-body` | 1.000rem (21px) | `Roboto` | 1.6 | **Body Base (Regular):** Standard baseline body text for all articles, paragraphs, and extended prose. |
+| `--font-size-small` | 0.810rem (17px) | `Roboto` | 1.6 | **Body Small:** Form fields, inputs, button texts, metadata labels, navigation links, description text. |
+| `--font-size-caption` | 0.714rem (15px) | `Roboto` | 1.6 | **Caption / Legal:** Tooltips, form validation errors, copyright notices, micro-labels. |
+
+Note: Heading sizes are applied directly in component CSS using the `Anton` font family. The type scale tokens (`--font-size-*`) are reserved for body/UI text sizes.
 
 ---
 
@@ -71,15 +65,14 @@ The website utilizes 13 explicit font size tokens to map every typographic insta
 To guarantee that components look intentional and accessible, apply the color tokens and typography configurations according to the following strict rules:
 
 ### 3.1 Primary Call-To-Action (CTA) Buttons
-* **Background Color:** `color-primary` (`#A4674C`)
-* **Text Color:** `stone-50` (`#FAFAF9`) — *Ensures excellent readability and contrast on the warm terracotta base.*
-* **Font Typography:** `Questrial`, size `font-size-17` (`0.810rem`), Bold / Medium weight.
-* **Hover State:** Lighten or shift to a slightly deeper tone, or transition with a border outline utilizing `stone-900`.
+* **Background Color:** `stone-800` (`#292524`) — dark, grounding tone for "Add to Cart" buttons
+* **Text Color:** `#fff` — Ensures excellent readability and contrast.
+* **Font Typography:** `Roboto`, size `--font-size-caption` (15px), weight 600, letter-spacing -0.02em.
 
 ### 3.2 Main Content Typography Configuration
-* **Page Title (H1):** `font-size-63` (`3.000rem`) | Font: `Anton` | Color: `stone-900` (`#1C1917`)
-* **Section Title (H2):** `font-size-52` (`2.476rem`) | Font: `Anton` | Color: `stone-900` (`#1C1917`) or `color-primary` (`#A4674C`) for custom editorial emphasis.
-* **Running Text Paragraphs:** `font-size-21` (`1.000rem`) | Font: `Questrial` | Color: `stone-900` (`#1C1917`) | Line-Height: `1.6` for an open, clean digital presentation.
+* **Product Title (H2):** 25px | Font: `Anton` | Color: `stone-800` (`#292524`)
+* **Collection Label:** 12px | Font: `Roboto` | Color: `stone-400` | Text-transform: uppercase
+* **Running Text Paragraphs:** `--font-size-small` (17px) | Font: `Roboto` | Color: `stone-600` | Line-Height: `1.6`
 
 ### 3.3 Cards and Content Layout Containers
 * **Container Background:** `stone-50` (`#FAFAF9`) or pure white (`#FFFFFF`).
@@ -89,3 +82,29 @@ To guarantee that components look intentional and accessible, apply the color to
 ### 3.4 Accessibility & Contrast Checklist
 1.  **Text on Stone 50/100:** Always use `stone-900` or `stone-800` for standard running body text. Never use `stone-500` or lower for essential information.
 2.  **Primary Accent Text Links:** `color-primary` (`#A4674C`) text links must only be used on light backgrounds (`stone-50`, `stone-100`, white) and should include an underline state on hover to meet WCAG interactive target visibility standards.
+
+---
+
+## 4. Spacing Scale
+
+| Token | Value | Usage |
+| :--- | :--- | :--- |
+| `--space-xs` | 0.25rem (4px) | Micro-gaps, tight spacing |
+| `--space-sm` | 0.5rem (8px) | Small gaps, grid gaps |
+| `--space-md` | 1rem (16px) | Standard padding, form spacing |
+| `--space-lg` | 2rem (32px) | Section padding, large gaps |
+| `--space-xl` | 3rem (48px) | Section padding (hero), major separations |
+
+---
+
+## 5. Z-Index Scale
+
+| Token | Value | Usage |
+| :--- | :--- | :--- |
+| `--z-overlay` | 100 | Focus mode overlay |
+| `--z-content` | 101 | Content wrapper, gallery |
+| `--z-clone` | 102 | FLIP animation clone |
+| `--z-panel` | 102 | Product detail panel |
+| `--z-note` | 102 | Designer's note |
+| `--z-indicator` | 103 | Scroll indicator |
+| `--z-header-focus` | 200 | Fixed header during focus mode |
