@@ -45,6 +45,7 @@ img/
 - `data/products.json` — static product catalog (name, description, price, variants, images)
 - Public dir `public/` — static assets served at `/` (prod JSON + WebP copies)
 - WhatsApp deep link used for order intent (phone in footer)
+- Contact email `info@houseofnabl.com` in footer
 - Product data in focus mode is pulled from a local `productDataMap` (keyed by image filename), NOT from `products.json`
 
 ## Code Style Guidelines
@@ -128,7 +129,7 @@ img/
 
 ### Header During Focus Mode
 - Header becomes `position: fixed; z-index: 200` with frosted glass background
-- Shows logo, "House of Nabl" (17px Anton), Size Guide, Cart counter
+- Shows logo, "House of Nabl" (19px Anton), Size Guide, Cart counter
 
 ### Cart
 - Module-level `cartCount` variable incremented on "Add to Cart" click
@@ -172,6 +173,8 @@ img/
 - `prefers-reduced-motion` media query at bottom of stylesheet
 - `body.focus-active` class controls scroll lock + header positioning
 - Use `min-height` on grid rows to prevent layout shift before images load
+- Footer uses `::after` pseudo-element on `> span:not(:last-child)` for `/` separators
+- `.bg-grid-dots` utility class for decorative grid + dot pattern backgrounds
 
 ## What NOT To Do
 - Don't add a framework (React/Vue/etc.) without explicit request

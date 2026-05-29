@@ -41,6 +41,14 @@
   padding: 0;
 }
 
+.bg-grid-dots {
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(51,65,85,0.4) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--font-size-21);
@@ -106,7 +114,7 @@ button {
 
 .header__brand {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: 19px;
   letter-spacing: -0.05em;
   color: var(--stone-900);
   text-align: center;
@@ -223,12 +231,19 @@ button {
 
 .footer__col {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: -0.03em;
   color: var(--stone-600);
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 6px;
   line-height: 1;
+}
+
+.footer__col > span:not(:last-child)::after {
+  content: ' / ';
+  color: var(--stone-400);
+  margin-left: 6px;
 }
 
 .footer__col--left {

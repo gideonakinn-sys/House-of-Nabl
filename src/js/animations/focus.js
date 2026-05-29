@@ -73,7 +73,7 @@ function calculateTargetRect(rect, product) {
 
 function createOverlay() {
   const el = document.createElement('div');
-  el.className = 'hero__focus-overlay';
+  el.className = 'hero__focus-overlay bg-grid-dots';
   return el;
 }
 
