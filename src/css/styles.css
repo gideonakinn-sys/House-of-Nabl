@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 :root {
   --color-primary: #A4674C;
@@ -267,7 +268,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(245, 245, 244, 0.7);
+  background-color: rgba(245, 245, 244, 0.7);
   -webkit-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
   cursor: zoom-out;
@@ -388,6 +389,19 @@ button {
   color: #fff;
 }
 
+.hero__focus-note {
+  position: fixed;
+  z-index: 102;
+  font-family: 'Sacramento', cursive;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  line-height: 1.8;
+  color: var(--stone-600);
+  max-width: 250px;
+  pointer-events: none;
+  opacity: 0;
+}
+
 .hero__focus-gallery {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -459,9 +473,7 @@ body.focus-active .header {
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(245, 245, 244, 0.85);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {

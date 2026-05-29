@@ -170,6 +170,17 @@ function createIndicator(src) {
   return el;
 }
 
+function createDesignerNote() {
+  var el = document.createElement('div');
+  el.className = 'hero__focus-note';
+  el.innerHTML = [
+    '<strong>Designer\u2019s Note</strong>',
+    '',
+    'Designed as a softer interpretation of ceremonial Nigerian tailoring, this piece balances structure with movement for everyday wear. Inspired by Lagos nightlife and relaxed summer silhouettes.',
+  ].join('<br>');
+  return el;
+}
+
 function createGallery(img, alt, targetRect) {
   var el = document.createElement('div');
   el.className = 'hero__focus-gallery';
@@ -287,6 +298,7 @@ function cleanup() {
   d.gallery.remove();
   if (d.indicator) d.indicator.remove();
   d.overlay.remove();
+  if (d.note) d.note.remove();
   if (d.panelGroup) {
     if (isMobile()) {
       d.panelGroup.panel.remove();
@@ -316,6 +328,7 @@ function closeFocus() {
   gsap.killTweensOf(d.clone);
   gsap.killTweensOf(d.gallery);
   gsap.killTweensOf(d.overlay);
+  if (d.note) gsap.killTweensOf(d.note);
   if (d.panelGroup) {
     if (isMobile()) {
       gsap.killTweensOf(d.panelGroup.panel);
@@ -440,6 +453,17 @@ function openFocus(img) {
     }
   }
 
+  var note = !isMobile() && product ? createDesignerNote() : null;
+  if (note) {
+    requestAnimationFrame(function () {
+      var panelRect = panelGroup.wrapper.getBoundingClientRect();
+      note.style.left = CONFIG.pad + 'px';
+      note.style.top = panelRect.top + 'px';
+      document.body.appendChild(note);
+      gsap.to(note, { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.3, overwrite: 'auto' });
+    });
+  }
+
   var allImages = Array.from(document.querySelectorAll('.hero__img'));
   allImages.forEach(function (other) {
     if (other !== img) {
@@ -455,7 +479,7 @@ function openFocus(img) {
 
   gsap.set(img, { scale: 1, opacity: 0 });
 
-  focusData = { img: img, clone: clone, gallery: gallery, indicator: indicator, overlay: overlay, panelGroup: panelGroup, allImages: allImages };
+  focusData = { img: img, clone: clone, gallery: gallery, indicator: indicator, overlay: overlay, panelGroup: panelGroup, note: note, allImages: allImages };
 
   gsap.fromTo(overlay, { opacity: 0 }, {
     opacity: 1, duration: 0.4, ease: 'power2.out', overwrite: 'auto',
